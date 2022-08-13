@@ -5,71 +5,69 @@ use tudodebom;
 create table cliente(
 id int auto_increment primary key,
 nome varchar(50) not null,
-cpf varchar(50) not null,
-endereco varchar(100) not null,
-cidade varchar(50) not null,
-estado varchar(50) not null,
-cep varchar(50) not null,
-telefone varchar(50) not null
+cpf varchar(50) not null
 );
 
 create table categoria(
 id int auto_increment primary key,
-nome varchar(50) not null
+tipo_categoria varchar(50) not null
 );
 
 create table produto(
 id int auto_increment primary key,
 categoria_id int not null,
 nome varchar(100) not null,
-preco decimal(12,2) not null,
-desconto boolean not null,
-qtd int not null,
+estoque int not null,
+preco double not null,
+disponibilidade boolean not null,
+desconto_flag boolean not null,
+remedio_flag boolean not null,
+
 foreign key(categoria_id) references categoria(id) 
 );
 
-create table nf(
+create table pedido(
 id int auto_increment primary key,
+endereco_entrega varchar(100) not null,
+total_pedido double not null,
 cliente_id int not null,
--- item_nf_id int not null,
 
 foreign key(cliente_id) references cliente(id)
 -- foreign key(item_nf_id) references item_nf(id)
 );
 
-create table item_nf(
-nf_id int not null,
+create table item_pedido(
+id int auto_increment primary key,
+pedido_id int not null,
 produto_id int not null,
-qtd int not null,
+quantidade int not null,
+sub_total double not null,
 
-foreign key(nf_id) references nf(id),
+foreign key(pedido_id) references pedido(id),
 foreign key(produto_id) references produto(id)
 );
 
- insert into cliente (nome, cpf, endereco, cidade, estado, cep, telefone) values ("nome1", "123.123.123-123", "Rua Perdizes", "São Nunca", "SN", "00000-00", "9999-9999"), 
- ("nome2", "123.123.123-123", "Rua Perdizes", "São Nunca", "SN", "00000-00", "9999-9999"), 
- ("nome3", "123.123.123-123", "Rua Perdizes", "São Nunca", "SN", "00000-00", "9999-9999"), 
- ("nome4", "123.123.123-123", "Rua Perdizes", "São Nunca", "SN", "00000-00", "9999-9999");
+ insert into cliente (nome, cpf) values ("nome1", "123.123.123-123"), ("nome2", "123.123.123-123"), ("nome3", "123.123.123-123"), ("nome4", "123.123.123-123");
  
 insert into categoria(nome) values ("tipo 1"), ("tipo 2"), ("tipo 3"), ("tipo 4");
  
-insert into produto(nome, preco, estoque, desconto, categoria_id) values 
-("prod1", 2.00, 50, true, 1), ("prod2", 4.00, 50, false, 1), ("prod3", 6.00, 50,true, 1), ("prod4", 8.00, 50, false, 1),
-("prod5", 10.00, 50, true, 2), ("prod6", 12.00, 50, false, 2), ("prod7", 14.00, 50, true, 2), ("prod8", 16.00, 50, false, 2),
-("prod9", 18.00, 50, true, 3), ("prod10", 20.00, 50, false, 3), ("prod11", 22.00, 50, true, 3), ("prod12", 24.00, 50, false, 3),
-("prod13", 26.00, 50, true, 4), ("prod14", 28.00, 50, false, 4), ("prod15", 30.00, 50, true, 4), ("prod16", 32.00, 50, false, 4);
+insert into produto(categoria_id, nome, estoque, preco, disponibilidade, desconto_flag, remedio_flag) values 
+(1, "prod1", 50, 2.00, true, false, true), (1, "prod1", 50, 4.00, false, true, false), (1, "prod1", 50, 6.00, true, false, true), (1, "prod1", 50, 8.00, false, true, false),
+(2, "prod1", 50, 10.00, true, true, true), (2, "prod1", 50, 12.00, false, true, true), (2, "prod1", 50, 14.00, true, true, true), (2, "prod1", 50, 16.00, true, true, true),
+(3, "prod1", 50, 18.00, false, true, true), (3, "prod1", 50, 20.00, true, false, true), (3, "prod1", 50, 22.00, true, true, false), (3, "prod1", 50, 24.00, false, false, true),
+(4, "prod1", 50, 26.00, true, false, true),(4, "prod1", 50, 28.00, true, true, false), (4, "prod1", 50, 30.00, true, false, true), (4, "prod1", 50, 32.00, false, true, false);
 
-insert into nf (cliente_id) values (1), (2), (3), (4);
+insert into pedido (endereco_entrega, total_pedido, cliente_id) values ("Rua 1", 150.00 , 1), ("Rua 1", 150.00 , 2), ("Rua 1", 150.00 , 3), ("Rua 1", 150.00 , 4);
 
-select * from nf;
+select * from pedido;
 
-insert into item_nf (nf_id, produto_id, qtd) values 
-(1, 1, 5), (1, 2, 5), (1, 3, 5), (1, 4, 5), 
-(2, 5, 5), (2, 6, 5), (2, 7, 5), (2, 8, 5), 
-(3, 9, 5), (3, 10, 5), (3, 11, 5), (3, 12, 5), 
-(4, 13, 5), (4, 14, 5), (4, 15, 5), (4, 16, 5);
+insert into item_pedido (pedido_id, produto_id, quantidade, sub_total) values 
+(1, 1, 5, 15.00), (1, 2, 5, 15.00), (1, 3, 5, 15.00), (1, 4, 5, 15.00), 
+(2, 5, 5, 15.00), (2, 6, 5, 15.00), (2, 7, 5, 15.00), (2, 8, 5, 15.00), 
+(3, 9, 5, 15.00), (3, 10, 5, 15.00), (3, 11, 5, 15.00), (3, 12, 5, 15.00), 
+(4, 13, 5, 15.00), (4, 14, 5, 15.00), (4, 15, 5, 15.00), (4, 16, 5, 15.00);
 
-select * from item_nf;
+select * from item_pedido;
 
 -- calcular apenas produtos que estiverem com descontos true
 select  produto.nome, (preco + (preco * 0.2)) as valor_desconto from produto where desconto = true;
@@ -77,11 +75,11 @@ select  produto.nome, (preco + (preco * 0.2)) as valor_desconto from produto whe
 -- select c.nome'Nome Cliente', inf.nf_id 'Cod NF', inf.produto_id
 select p.id 'CODIGO', p.nome 'PRODUTO', (p.preco+(p.preco*0.2))'PRECO C/DESCONTO', c.nome 'CATEGORIA' from produto p inner join categoria c on c.id = p.categoria_id where p.preco < 8 and p.preco >= 2 and p.desconto = true;
 
-select (p.qtd - inf.qtd) 'DESCONTADO DO BANCO' from item_nf inf inner join produto p on p.id =  inf.produto_id where inf.nf_id = 1;
+select (p.estoque - ip.quantidade) 'DESCONTADO DO BANCO' from item_pedido ip inner join produto p on p.id =  ip.produto_id where ip.pedido_id = 1;
 
 select * from produto;
 
-select  (select sum(qtd) from produto)-(select sum(qtd) from item_nf); 
+select  (select sum(estoque) from produto)-(select sum(quantidade) from item_pedido); 
 
 -- update produto set p.qtd = (p.qtd - inf.qtd) from item_nf inf inner join produto p on p.id = inf.produto_id;
 
