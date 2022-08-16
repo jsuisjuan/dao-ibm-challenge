@@ -7,12 +7,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import connection.ClienteDAO;
+import connection.ItemPedidoDAO;
+import objetos.Cliente;
+import objetos.ItemPedido;
+
 import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import java.awt.Font;
+import java.util.ArrayList;
 
 public class DetalhamentoHistorico {
 	JFrame frame = new JFrame(); 
@@ -46,6 +53,8 @@ public class DetalhamentoHistorico {
 		table.setModel(model);
 		scrollPane.setViewportView(table);
 		
+		listarItemPedido();
+		
 		JLabel lbTotal = new JLabel("TOTAL: R$");
 		lbTotal.setBounds(170, 263, 63, 14);
 		contentPane.add(lbTotal);
@@ -60,5 +69,23 @@ public class DetalhamentoHistorico {
 		contentPane.add(lblNewLabel);
 		frame.setVisible(true);
 	}
+	 private void listarItemPedido() {
+			try {
+				ItemPedidoDAO objetoItemPedidoDAO = new ItemPedidoDAO();
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+				model.setNumRows(0);
+				ArrayList<ItemPedido> lista = objetoItemPedidoDAO.listarItemPedido();
+				
+				for (int num = 0; num < lista.size(); num++) {
+					model.addRow(new Object[] {
+							lista.get(num).getId(),
+							lista.get(num).getQuantidade(),
+							lista.get(num).getSubTotal(),
+					});
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "Listar valores : " + e);
+			}
+	 }
 
 }
