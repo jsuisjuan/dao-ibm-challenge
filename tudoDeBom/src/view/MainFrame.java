@@ -262,6 +262,15 @@ public class MainFrame extends JFrame {
 		});
 		btnEstoque.setBounds(23, 222, 188, 23);
 		contentPane.add(btnEstoque);
+		
+		JButton btnPedido = new JButton("Criar Pedido");
+		btnPedido.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CriarPedido controleWindow = new CriarPedido();
+			}
+		});
+		btnPedido.setBounds(23, 256, 188, 23);
+		contentPane.add(btnPedido);
 	}
 		private void listarClientes() {
 			try {
@@ -281,6 +290,4 @@ public class MainFrame extends JFrame {
 				JOptionPane.showMessageDialog(null, "Listar valores : " + e);
 			}
 	}
-	
-	
 }

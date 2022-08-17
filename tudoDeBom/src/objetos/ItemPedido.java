@@ -3,7 +3,7 @@ package objetos;
 public class ItemPedido {
 	int id, quantidade;
 	int pedidoId, produtoId;
-	double subTotal;
+	double subTotal, preco;
 	
 	public int getId() {
 		return id;
@@ -34,6 +34,12 @@ public class ItemPedido {
 	}
 	public void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
+	}
+	public double getPreco() {
+		return preco;
+	}
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 	
 }

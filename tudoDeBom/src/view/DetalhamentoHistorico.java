@@ -8,8 +8,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import connection.ClienteDAO;
+import connection.DetalhamentoDAO;
 import connection.ItemPedidoDAO;
+import connection.PedidoDAO;
 import objetos.Cliente;
+import objetos.DetalhePedido;
 import objetos.ItemPedido;
 
 import java.awt.Color;
@@ -53,15 +56,8 @@ public class DetalhamentoHistorico {
 		table.setModel(model);
 		scrollPane.setViewportView(table);
 		
-		listarItemPedido();
+		detalhamentoPedido();
 		
-		JLabel lbTotal = new JLabel("TOTAL: R$");
-		lbTotal.setBounds(170, 263, 63, 14);
-		contentPane.add(lbTotal);
-		
-		JLabel lbPrecoTotal = new JLabel("");
-		lbPrecoTotal.setBounds(244, 263, 49, 14);
-		contentPane.add(lbPrecoTotal);
 		
 		JLabel lblNewLabel = new JLabel("Aten\u00E7\u00E3o: Medicamentos gen\u00E9ricos cont\u00EAm 20% de desconto.");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
@@ -69,18 +65,22 @@ public class DetalhamentoHistorico {
 		contentPane.add(lblNewLabel);
 		frame.setVisible(true);
 	}
-	 private void listarItemPedido() {
+	 private void detalhamentoPedido() {
 			try {
-				ItemPedidoDAO objetoItemPedidoDAO = new ItemPedidoDAO();
+				DetalhamentoDAO objetoItemPedidoDAO = new DetalhamentoDAO();
 				DefaultTableModel model = (DefaultTableModel) table.getModel();
 				model.setNumRows(0);
-				ArrayList<ItemPedido> lista = objetoItemPedidoDAO.listarItemPedido();
+				ArrayList<DetalhePedido> lista = objetoItemPedidoDAO.detalhamentoPedido();
 				
 				for (int num = 0; num < lista.size(); num++) {
 					model.addRow(new Object[] {
-							lista.get(num).getId(),
+							
+							lista.get(num).getNomeProduto(),
 							lista.get(num).getQuantidade(),
+							lista.get(num).getPreco(),
 							lista.get(num).getSubTotal(),
+//							lista.get(num).getIdCliente(),
+							
 					});
 				}
 			} catch (Exception e) {

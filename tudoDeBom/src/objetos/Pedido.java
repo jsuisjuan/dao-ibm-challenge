@@ -5,7 +5,8 @@ import java.util.Date;
 public class Pedido {
 	int id, clienteId;
 	String enderecoEntrega;
-	Date dataPedido;
+	long miliseconds = System.currentTimeMillis();
+	Date dataPedido = new Date(miliseconds);
 	double totalPedido;
 	
 	public int getId() {
@@ -38,4 +39,11 @@ public class Pedido {
 	public void setTotalPedido(double totalPedido) {
 		this.totalPedido = totalPedido;
 	}
+	@Override
+	public String toString() {
+		return "Pedido [id=" + id + ", clienteId=" + clienteId + ", enderecoEntrega=" + enderecoEntrega
+				+ ", miliseconds=" + miliseconds + ", dataPedido=" + dataPedido + ", totalPedido=" + totalPedido + "]";
+	}
+	
+	
 }

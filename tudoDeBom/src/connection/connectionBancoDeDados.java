@@ -18,7 +18,7 @@ public class connectionBancoDeDados {
 		Connection conn = null;
 		
 		try {
-			String servidor = "jdbc:mysql://localhost/tudodebombd?user=root&password=Carvalho.2004";
+			String servidor = "jdbc:mysql://localhost/tudodebombd?user=root&password=root";
 			conn = DriverManager.getConnection(servidor);
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro de Conexao: " + e.getMessage());
