@@ -108,4 +108,4 @@ select cl.nome 'CLIENTE', pd.id 'Nº PEDIDO', ip.quantidade 'QUANTIDADE', pr.pre
  
  select * from pedido inner join item_pedido on  pedido.pedido_id  = item_pedido.pedido_id 
  inner join produto on produto.id = item_pedido.produto_id
- inner join cliente on cliente.id = pedido.cliente_id;
+ inner join cliente on cliente.id = pedido.cliente_id where pedido.pedido_id = 1;
