@@ -1,5 +1,5 @@
 # Farmácio Tudo de Bom
-## Desafio Parte 1: Programa if black, then code - IBM & Gama Academy
+## Desafio Parte 1: IBM 
 #### A loja fictícia Tudo de Bom está construindo uma nova plataforma e precisa de uma API para gerenciar as transações. O sistema deve permitir cadastro de novos clientes, incluindo dados pessoais, dados para contato e controle de estoque.
 
 #### Tech's utilizadas: JAVA (JFrame) / MySQL
